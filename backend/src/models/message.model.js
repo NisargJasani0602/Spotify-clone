@@ -1,21 +1,14 @@
 import mongoose from 'mongoose';
 
-const messageSchema = new mongoose.Schema({
-  senderId: { // Clerk User ID of the sender
-    type: String,
-    required: true,
-  },
-  receiverId: { // Clerk User ID of the receiver
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-}, { timestamps: true }  // CreatedAt and UpdatedAt fields
+const messageSchema = new mongoose.Schema(
+	{
+		senderId: { type: String, required: true }, // Clerk user ID
+		receiverId: { type: String, required: true }, // Clerk user ID
+		content: { type: String, required: true },
+	},
+	{ timestamps: true }
 );
 
-const Message = mongoose.model('Message', messageSchema);
+const Message = mongoose.model("Message", messageSchema);
 
 export default Message;
