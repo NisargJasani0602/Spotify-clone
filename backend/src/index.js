@@ -29,7 +29,8 @@ initializeSocket(httpServer);
 
 app.use(cors(
   {
-    origin: 'http://localhost:3000', // frontend origin
+    origin: ['http://localhost:3000',
+    process.env.FRONTEND_URL,],
     credentials: true,
   }
 )); // Enable CORS for all routes
@@ -75,10 +76,14 @@ app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statRoutes);
 
-if(process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
-  app.get((req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+if (process.env.NODE_ENV === "production") {
+  const distPath = path.join(__dirname, "../frontend/dist");
+
+  app.use(express.static(distPath));
+
+  // Catch-all route (must be REGEX, not "*", not "/*")
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
 }
 
