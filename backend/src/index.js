@@ -16,6 +16,14 @@ import adminRoutes from './routes/admin.route.js';
 import songRoutes from './routes/song.route.js';
 import albumRoutes from './routes/album.route.js';
 import statRoutes from './routes/stat.route.js';
+import semanticRouter from "./routes/semantic.route.js";
+import spotifyRouter from "./routes/spotify.route.js";
+import sparqlRoutes from "./routes/sparql.route.js";
+import genreRoutes from "./routes/genre.route.js";
+import artistRoutes from "./routes/artist.route.js";
+
+
+
 
 
 dotenv.config();
@@ -75,6 +83,11 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statRoutes);
+app.use("/semantic", semanticRouter);
+app.use("/api/spotify", spotifyRouter);
+app.use("/api/sparql", sparqlRoutes);
+app.use("/api/genre", genreRoutes);
+app.use("/api/artist", artistRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const distPath = path.join(__dirname, "../frontend/dist");
